@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express');
+PORT = process.env.PORT || 4000;
 
 // mongoose is used to create Schemas and Database for the application, it is a ODM, Object Data Modelling
 // Like you can Create a schema that for every blog post saved in DB there must be a title, author, date, content
