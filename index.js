@@ -10,7 +10,8 @@ const workoutRoutes = require("./routes/workouts");
 const userRoutes = require("./routes/user");
 
 const app = express();
-app.use(cors());
+
+app.use(cors({ origin: "https://workoutbuddyy.netlify.app" }));
 
 // middleware code is executes getting responsce from server and sending a response
 // global middleware
