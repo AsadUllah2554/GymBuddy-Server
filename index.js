@@ -10,17 +10,30 @@ const workoutRoutes = require('./routes/workouts');
 const userRoutes = require('./routes/user');
 
 const app = express();
+const corsOpts = {
+    origin: '*',
+  
+    methods: [
+      'GET',
+      'POST',
+    ],
+  
+    allowedHeaders: [
+      'Content-Type',
+    ],
+  };
 
 // middleware code is executes getting responsce from server and sending a response
 // global middleware
 
 app.use(express.json())
-app.use(cors())
+app.use(cors(corsOpts))
 app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
 
 })
+
 
 // routes 
 app.get('/', (req, res) => {
