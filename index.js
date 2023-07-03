@@ -1,63 +1,45 @@
-require('dotenv').config()
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const PORT = process.env.PORT || 4000;
-const cors = require('cors');
+const cors = require("cors");
 
 // mongoose is used to create Schemas and Database for the application, it is a ODM, Object Data Modelling
 // Like you can Create a schema that for every blog post saved in DB there must be a title, author, date, content
-const mongoose = require('mongoose');
-const workoutRoutes = require('./routes/workouts');
-const userRoutes = require('./routes/user');
+const mongoose = require("mongoose");
+const workoutRoutes = require("./routes/workouts");
+const userRoutes = require("./routes/user");
 
 const app = express();
-
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
-// const corsOpts = {
-//     origin: '*',
-  
-//     methods: [
-//       'GET',
-//       'POST',
-//     ],
-  
-//     allowedHeaders: [
-//       'Content-Type',
-//     ],
-//   };
+app.use(cors());
 
 // middleware code is executes getting responsce from server and sending a response
 // global middleware
 
-app.use(express.json())
+app.use(express.json());
 // app.use(cors(corsOpts))
 app.use((req, res, next) => {
-    console.log(req.path, req.method);
-    next();
+  console.log(req.path, req.method);
+  next();
+});
 
-})
+// routes
+app.get("/", cors(), (req, res) => {
+  res.json({ msg: "Welcome to the app" });
+});
 
-
-// routes 
-app.get('/', (req, res) => {
-    res.json({msg:"Welcome to the app"})
-})
-
-app.use('/api/workouts', workoutRoutes)
-app.use('/api/user', userRoutes)
+app.use("/api/workouts", workoutRoutes);
+app.use("/api/user", userRoutes);
 
 // connection to DB
-mongoose.connect(process.env.MONGO_URI).then(() => {
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
     app.listen(PORT, () => {
-        console.log('connected to data server started at !!!', PORT);
-    })
-})
-.catch((err) => { console.log(err)})
+      console.log("connected to data server started at !!!", PORT);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 export default app;
-
