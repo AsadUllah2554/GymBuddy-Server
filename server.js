@@ -30,8 +30,8 @@ app.use('/api/user', userRoutes)
 
 // connection to DB
 mongoose.connect(process.env.MONGO_URI).then(() => {
-    app.listen(process.env.PORT, () => {
-        console.log('connected to data server started at !!!', process.env.PORT);
+    app.listen(PORT, () => {
+        console.log('connected to data server started at !!!', PORT);
     })
 })
 .catch((err) => { console.log(err)})
