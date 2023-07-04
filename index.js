@@ -11,7 +11,7 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-app.use(cors({ origin: "https://workoutbuddyy.netlify.app" }));
+app.use(cors({ origin: "https://gymbuddy-two.vercel.app" }));
 
 // middleware code is executes getting responsce from server and sending a response
 // global middleware
