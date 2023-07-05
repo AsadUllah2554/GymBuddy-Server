@@ -17,6 +17,18 @@ app.use(cors());
 // global middleware
 
 app.use(express.json());
+
+// connection to DB
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log("connected to data server started at !!!", PORT);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 // app.use(cors(corsOpts))
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -31,16 +43,6 @@ app.get("/", cors(), (req, res) => {
 app.use("/api/workouts", workoutRoutes);
 app.use("/api/user", userRoutes);
 
-// connection to DB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log("connected to data server started at !!!", PORT);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
-export default app;
+
+//export default app;
